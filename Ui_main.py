@@ -172,6 +172,6 @@ class Ui_Form(object):
         self.pushButton_11.setText(_translate("Form", "5.3 Train 1 Epoch"))
         self.pushButton_12.setText(_translate("Form", "5.4 Show Train Result"))
         self.pushButton_13.setText(_translate("Form", "5.5 Inference"))
-        self.label_9.setText(_translate("Form", "Text Image Index:"))
+        self.label_9.setText(_translate("Form", "Test Image Index:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "CIFAR-10"))
 

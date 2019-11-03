@@ -482,7 +482,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Text Image Index:</string>
+      <string>Test Image Index:</string>
      </property>
     </widget>
     <widget class="QTextEdit" name="textEdit_5">
