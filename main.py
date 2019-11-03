@@ -12,11 +12,15 @@ BOARD_SIZE = (11, 8)
 
 
 def drawPyramid(img, points):
-    lines = [(0, 1), (0, 3), (0, 4), (1, 2), (1, 5), (2, 3),
-             (2, 6), (3, 7), (4, 5), (4, 7), (5, 6), (6, 7)]
+    lines = [(0, 1), (0, 3), (1, 2), (2, 3)]
     for p1, p2 in lines:
         img = cv2.line(img, tuple(points[p1].ravel()), tuple(
             points[p2].ravel()), (0, 0, 255), 10)
+
+    top = np.divide(np.array([points[4], points[5], points[6], points[7]]).sum(axis=0), 4)
+    for i in range(0, 4):
+        img = cv2.line(img, tuple(points[i].ravel()), tuple(
+            top.ravel()), (0, 0, 255), 10)
     return img
 
 
