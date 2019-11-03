@@ -20,17 +20,6 @@ def drawPyramid(img, points):
     return img
 
 
-    # cv2.namedWindow("Image " + str(i + 1), cv2.WINDOW_GUI_NORMAL)
-    # height, width, channels = imgs[i].shape
-    # cv2.resizeWindow("Image " + str(i + 1),
-    #                  (int(showSize / height * width), int(showSize)))
-    # cv2.moveWindow("Image " + str(i + 1), int((resW - showSize /
-    #                                            height * width) / 2), int((resH - showSize) / 2))
-    # cv2.imshow("Image " + str(i + 1), imgs[i])
-    # cv2.waitKey(500)
-    # cv2.destroyAllWindows()
-
-
 def augmentedReality():
     imgs = []
     objPoints = []
@@ -65,7 +54,7 @@ def augmentedReality():
                             imgs[i].shape[0],
                             imgs[i].strides[0],
                             QtGui.QImage.Format_RGB888).rgbSwapped()
-        ui_ar.label.setPixmap(QtGui.QPixmap.fromImage(qImg))
+        ui_ar.label.setPixmap(QtGui.QPixmap.fromImage(qImg).scaled(512, 512))
         QtTest.QTest.qWait(500)
     ArWidget.close()
 
