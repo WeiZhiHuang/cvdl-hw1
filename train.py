@@ -12,6 +12,7 @@ import torchvision.transforms as transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
+import os
 import copy
 
 
@@ -23,6 +24,8 @@ TRAIN_NUMS = 49000
 CUDA = True
 
 PATH_TO_SAVE_DATA = './'
+ABS_PATH = os.path.abspath(os.path.dirname(__file__))
+MODEL_PATH = os.path.join(ABS_PATH, 'model.pkl')
 
 
 data_transform = transforms.Compose([transforms.ToTensor()])
@@ -50,11 +53,12 @@ class Trainer:
         self.device = device
 
     def train_loop(self, model, train_loader, val_loader):
+        results = []
         for epoch in range(EPOCHS):
             print('---------------- Epoch {} ----------------'.format(epoch))
             self._training_step(model, train_loader, epoch)
-
-            self._validate(model, val_loader, epoch)
+            results.append(self._validate(model, val_loader, epoch))
+        return results
 
     def _training_step(self, model, loader, epoch):
         model.train()
@@ -93,6 +97,8 @@ class Trainer:
             outs = torch.cat(outs_list)
             loss = torch.mean(torch.stack(loss_list), dim=0)
             self._state_logging(outs, y, loss, step, epoch, state)
+
+        return (self._accuracy(outs, y), loss)
 
     def _state_logging(self, outs, y, loss, step, epoch, state):
         acc = self._accuracy(outs, y)
@@ -136,6 +142,25 @@ def getTrainImages():
 
 def startTrainOneEpoch():
     return trainer.train_one_epoch(copy.deepcopy(model), train_loader)
+
+
+def startTrainLoop():
+    trainedModel = copy.deepcopy(model)
+    if os.path.isfile(MODEL_PATH):
+        trainedModel.load_state_dict(torch.load(MODEL_PATH))
+        trainedModel.eval()
+    else:
+        result = trainer.train_loop(trainedModel, train_loader, val_loader)
+        torch.save(trainedModel.state_dict(), MODEL_PATH)
+
+        fig = plt.figure(1)
+        ax1 = plt.subplot(211)
+        ax1.set(title='Accurancy', ylabel='%')
+        plt.plot(range(0, EPOCHS), np.array(result)[:, 0])
+        ax2 = plt.subplot(212)
+        ax2.set(xlabel='epoch', ylabel='loss')
+        plt.plot(range(0, EPOCHS), np.array(result)[:, 1])
+        fig.savefig(os.path.join(ABS_PATH, 'result.png'))
 
 
 model = nn.Sequential(nn.Conv2d(3, 6, 5),

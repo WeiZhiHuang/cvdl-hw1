@@ -92,6 +92,14 @@ def trainOneEpoch():
     plt.show()
 
 
+def showTrainingResult():
+    train.startTrainLoop()
+    resultImg = plt.imread(os.path.abspath(
+        os.path.join(os.path.dirname(__file__), 'result.png')))
+    plt.imshow(resultImg)
+    plt.show()
+
+
 if __name__ == '__main__':
     os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = os.path.join(
         os.path.dirname(PyQt5.__file__), 'Qt', 'plugins', 'platforms')
@@ -112,7 +120,7 @@ if __name__ == '__main__':
     ui.pushButton_9.clicked.connect(showTrainImages)
     ui.pushButton_10.clicked.connect(showHyperparameters)
     ui.pushButton_11.clicked.connect(trainOneEpoch)
-    # ui.pushButton_12.clicked.connect()
+    ui.pushButton_12.clicked.connect(showTrainingResult)
     # ui.pushButton_13.clicked.connect()
 
     Widget.show()
