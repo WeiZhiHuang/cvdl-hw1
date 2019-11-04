@@ -35,11 +35,6 @@ val_loader = DataLoader(train_data, batch_size=BATCH_SIZE,
                         sampler=SubsetRandomSampler(range(TRAIN_NUMS, 50000)))
 
 
-test_data = datasets.CIFAR10(root=PATH_TO_SAVE_DATA, train=False,
-                             download=True, transform=data_transform)
-test_loader = DataLoader(test_data, batch_size=BATCH_SIZE)
-
-
 if CUDA:
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 else:
@@ -60,10 +55,6 @@ class Trainer:
             self._training_step(model, train_loader, epoch)
 
             self._validate(model, val_loader, epoch)
-
-    def test(self, model, test_loader):
-        print('---------------- Testing ----------------')
-        self._validate(model, test_loader, 0, state='Testing')
 
     def _training_step(self, model, loader, epoch):
         model.train()
@@ -120,7 +111,7 @@ class Trainer:
     def train_one_epoch(self, model, train_loader):
         losses = []
         model.train()
-        for step, (X, y) in enumerate(train_loader):
+        for _, (X, y) in enumerate(train_loader):
             X, y = X.to(self.device), y.to(self.device)
 
             self.optimizer.zero_grad()
@@ -130,11 +121,6 @@ class Trainer:
             loss.backward()
             self.optimizer.step()
         return losses
-
-
-def startTrainLoop():
-    trainer.train_loop(model, train_loader, val_loader)
-    trainer.test(model, test_loader)
 
 
 def getTrainImages():

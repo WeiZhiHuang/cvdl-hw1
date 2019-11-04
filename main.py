@@ -86,12 +86,11 @@ def trainOneEpoch():
     losses = train.startTrainOneEpoch()
     iteration = range(0, len(losses))
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.plot(iteration, losses)
-
     ax.set(xlabel='iteration', ylabel='loss')
-
     plt.show()
+
 
 if __name__ == '__main__':
     os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = os.path.join(
