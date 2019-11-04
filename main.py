@@ -91,7 +91,6 @@ def trainOneEpoch():
 
     ax.set(xlabel='iteration', ylabel='loss')
 
-    fig.savefig("test.png")
     plt.show()
 
 if __name__ == '__main__':
