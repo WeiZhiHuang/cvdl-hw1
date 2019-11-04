@@ -16,7 +16,7 @@ import os
 import copy
 
 
-EPOCHS = 50
+EPOCHS = 1
 BATCH_SIZE = 64
 PRINT_FREQ = 100
 TRAIN_NUMS = 49000
@@ -160,6 +160,7 @@ def startTrainLoop():
         ax2.set(xlabel='epoch', ylabel='loss')
         plt.plot(range(0, EPOCHS), np.array(result)[:, 1])
         fig.savefig(os.path.join(ABS_PATH, 'result.png'))
+        plt.clf()
 
 
 model = nn.Sequential(nn.Conv2d(3, 6, 5),
