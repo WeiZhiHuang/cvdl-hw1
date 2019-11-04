@@ -12,16 +12,10 @@ BOARD_SIZE = (11, 8)
 
 
 def drawPyramid(img, points):
-    lines = [(0, 1), (0, 3), (1, 2), (2, 3)]
+    lines = [(0, 1), (0, 3), (0, 4), (1, 2), (1, 4), (2, 3), (2, 4), (3, 4)]
     for p1, p2 in lines:
         img = cv2.line(img, tuple(points[p1].ravel()), tuple(
             points[p2].ravel()), (0, 0, 255), 10)
-
-    top = np.divide(
-        np.array([points[4], points[5], points[6], points[7]]).sum(axis=0), 4)
-    for i in range(0, 4):
-        img = cv2.line(img, tuple(points[i].ravel()), tuple(
-            top.ravel()), (0, 0, 255), 10)
     return img
 
 
@@ -46,8 +40,8 @@ def augmentedReality():
 
     _, cameraMatrix, distCoeffs, rvecs, tvecs = cv2.calibrateCamera(
         objPoints, imgPoints, BOARD_SIZE, None, None)
-    axis = np.float32([[-1, -1, 0], [-1, 1, 0], [1, 1, 0], [1, -1, 0],
-                       [-1, -1, -2], [-1, 1, -2], [1, 1, -2], [1, -1, -2]]).reshape(-1, 3)
+    axis = np.float32([[-1, -1, 0], [-1, 1, 0], [1, 1, 0],
+                       [1, -1, 0], [0, 0, -2]]).reshape(-1, 3)
 
     ArWidget.show()
     for i in range(0, 5):
