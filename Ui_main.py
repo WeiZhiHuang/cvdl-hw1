@@ -134,6 +134,10 @@ class Ui_Form(object):
         self.textEdit_5.setGeometry(QtCore.QRect(120, 200, 104, 20))
         self.textEdit_5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit_5.setObjectName("textEdit_5")
+        self.textBrowser = QtWidgets.QTextBrowser(self.tab_2)
+        self.textBrowser.setGeometry(QtCore.QRect(250, 40, 360, 230))
+        self.textBrowser.setStyleSheet("background-color: #000;")
+        self.textBrowser.setObjectName("textBrowser")
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(Form)
@@ -173,5 +177,10 @@ class Ui_Form(object):
         self.pushButton_12.setText(_translate("Form", "5.4 Show Train Result"))
         self.pushButton_13.setText(_translate("Form", "5.5 Inference"))
         self.label_9.setText(_translate("Form", "Test Image Index:"))
+        self.textBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">hyperparameters:</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Form", "CIFAR-10"))
 
