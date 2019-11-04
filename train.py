@@ -141,17 +141,16 @@ def getTrainImages():
 
 
 def startTrainOneEpoch():
-    return trainer.train_one_epoch(copy.deepcopy(model), train_loader)
+    return trainer.train_one_epoch(copy.deepcopy(clearModel), train_loader)
 
 
 def startTrainLoop():
-    trainedModel = copy.deepcopy(model)
     if os.path.isfile(MODEL_PATH):
-        trainedModel.load_state_dict(torch.load(MODEL_PATH))
-        trainedModel.eval()
+        model.load_state_dict(torch.load(MODEL_PATH))
+        model.eval()
     else:
-        result = trainer.train_loop(trainedModel, train_loader, val_loader)
-        torch.save(trainedModel.state_dict(), MODEL_PATH)
+        result = trainer.train_loop(model, train_loader, val_loader)
+        torch.save(model.state_dict(), MODEL_PATH)
 
         fig = plt.figure(1)
         ax1 = plt.subplot(211)
@@ -175,6 +174,8 @@ model = nn.Sequential(nn.Conv2d(3, 6, 5),
                       nn.Linear(120, 84),
                       nn.ReLU(),
                       nn.Linear(84, 10))
+
+clearModel = copy.deepcopy(model)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(
