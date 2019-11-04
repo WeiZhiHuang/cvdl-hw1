@@ -13,9 +13,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-CIFAR_MEAN = [0.49139968, 0.48215827, 0.44653124]
-CIFAR_STD = [0.2023, 0.1994, 0.2010]
-
 EPOCHS = 50
 BATCH_SIZE = 64
 PRINT_FREQ = 100
@@ -26,10 +23,7 @@ CUDA = True
 PATH_TO_SAVE_DATA = './'
 
 
-data_transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(CIFAR_MEAN, CIFAR_STD)
-])
+data_transform = transforms.Compose([transforms.ToTensor()])
 
 train_data = datasets.CIFAR10(root=PATH_TO_SAVE_DATA, train=True,
                               download=True, transform=data_transform)
@@ -144,15 +138,12 @@ def startTraining():
     trainer.test(model, test_loader)
 
 
-def showTrainImages():
+def getTrainImages():
+    imgs = []
     labels = ['airplane', 'automobile', 'bird', 'cat',
               'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-    count = 0
     for img, label in train_loader:
-        labels[label[0]]
-        plt.imshow(np.transpose(img[0].numpy(), (1, 2, 0)))
-        plt.show()
-
-        count += 1
-        if count > 9:
+        imgs.append((transforms.ToPILImage()(img[0]), labels[label[0]]))
+        if len(imgs) == 10:
             break
+    return imgs

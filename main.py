@@ -3,9 +3,12 @@ import sys
 import cv2
 import PyQt5
 import numpy as np
+from PIL.ImageQt import ImageQt
 from PyQt5 import QtGui, QtWidgets, QtTest
 from Ui_main import Ui_Form as Ui_main
 from Ui_ar import Ui_Form as Ui_ar
+from Ui_train_images import Ui_Form as Ui_train_images
+import train
 
 
 BOARD_SIZE = (11, 8)
@@ -53,9 +56,17 @@ def augmentedReality():
                             imgs[i].shape[0],
                             imgs[i].strides[0],
                             QtGui.QImage.Format_RGB888).rgbSwapped()
-        ui_ar.label.setPixmap(QtGui.QPixmap.fromImage(qImg).scaled(512, 512))
+        uiAr.label.setPixmap(QtGui.QPixmap.fromImage(qImg).scaled(512, 512))
         QtTest.QTest.qWait(500)
     ArWidget.close()
+
+
+def showTrainImages():
+    for i, img in enumerate(train.getTrainImages()):
+        uiTrainImages.imgLabels[i].setPixmap(
+            QtGui.QPixmap(QtGui.QImage(ImageQt(img[0]))).scaled(128, 128))
+        uiTrainImages.labels[i].setText(img[1])
+    TrainImagesWidget.show()
 
 
 if __name__ == '__main__':
@@ -67,11 +78,15 @@ if __name__ == '__main__':
     ui.setupUi(Widget)
 
     ArWidget = QtWidgets.QWidget()
-    ui_ar = Ui_ar()
-    ui_ar.setupUi(ArWidget)
+    uiAr = Ui_ar()
+    uiAr.setupUi(ArWidget)
+
+    TrainImagesWidget = QtWidgets.QWidget()
+    uiTrainImages = Ui_train_images()
+    uiTrainImages.setupUi(TrainImagesWidget)
 
     ui.pushButton_5.clicked.connect(augmentedReality)
-    # ui.pushButton_9.clicked.connect()
+    ui.pushButton_9.clicked.connect(showTrainImages)
     # ui.pushButton_10.clicked.connect()
     # ui.pushButton_11.clicked.connect()
     # ui.pushButton_12.clicked.connect()
