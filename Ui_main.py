@@ -135,7 +135,7 @@ class Ui_Form(object):
         self.textEdit_5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit_5.setObjectName("textEdit_5")
         self.textBrowser = QtWidgets.QTextBrowser(self.tab_2)
-        self.textBrowser.setGeometry(QtCore.QRect(250, 40, 360, 230))
+        self.textBrowser.setGeometry(QtCore.QRect(250, 30, 360, 240))
         self.textBrowser.setStyleSheet("background-color: #000;")
         self.textBrowser.setObjectName("textBrowser")
         self.tabWidget.addTab(self.tab_2, "")

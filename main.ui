@@ -502,9 +502,9 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>40</y>
+       <y>30</y>
        <width>360</width>
-       <height>230</height>
+       <height>240</height>
       </rect>
      </property>
      <property name="styleSheet">
