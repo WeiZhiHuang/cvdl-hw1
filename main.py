@@ -2,7 +2,9 @@ import os
 import sys
 import cv2
 import PyQt5
+import matplotlib
 import numpy as np
+import matplotlib.pyplot as plt
 from PIL.ImageQt import ImageQt
 from PyQt5 import QtGui, QtWidgets, QtTest
 from Ui_main import Ui_Form as Ui_main
@@ -80,6 +82,18 @@ def showHyperparameters():
                            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">optimizer: SGD</span></p></body></html>")
 
 
+def trainOneEpoch():
+    losses = train.startTrainOneEpoch()
+    iteration = range(0, len(losses))
+
+    fig, ax = plt.subplots()
+    ax.plot(iteration, losses)
+
+    ax.set(xlabel='iteration', ylabel='loss')
+
+    fig.savefig("test.png")
+    plt.show()
+
 if __name__ == '__main__':
     os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = os.path.join(
         os.path.dirname(PyQt5.__file__), 'Qt', 'plugins', 'platforms')
@@ -99,7 +113,7 @@ if __name__ == '__main__':
     ui.pushButton_5.clicked.connect(augmentedReality)
     ui.pushButton_9.clicked.connect(showTrainImages)
     ui.pushButton_10.clicked.connect(showHyperparameters)
-    # ui.pushButton_11.clicked.connect()
+    ui.pushButton_11.clicked.connect(trainOneEpoch)
     # ui.pushButton_12.clicked.connect()
     # ui.pushButton_13.clicked.connect()
 

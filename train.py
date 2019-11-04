@@ -12,6 +12,8 @@ import torchvision.transforms as transforms
 import numpy as np
 import matplotlib.pyplot as plt
 
+import copy
+
 
 EPOCHS = 50
 BATCH_SIZE = 64
@@ -115,25 +117,22 @@ class Trainer:
 
         return acc
 
+    def train_one_epoch(self, model, train_loader):
+        losses = []
+        model.train()
+        for step, (X, y) in enumerate(train_loader):
+            X, y = X.to(self.device), y.to(self.device)
 
-def startTraining():
-    model = nn.Sequential(nn.Conv2d(3, 6, 5),
-                          nn.ReLU(),
-                          nn.MaxPool2d(2),
-                          nn.Conv2d(6, 16, 5),
-                          nn.ReLU(),
-                          nn.MaxPool2d(2),
-                          nn.Flatten(),
-                          nn.Linear(400, 120),
-                          nn.ReLU(),
-                          nn.Linear(120, 84),
-                          nn.ReLU(),
-                          nn.Linear(84, 10))
+            self.optimizer.zero_grad()
+            outs = model(X)
+            loss = self.criterion(outs, y)
+            losses.append(loss)
+            loss.backward()
+            self.optimizer.step()
+        return losses
 
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(
-        params=model.parameters(), lr=1e-3, momentum=0.9)
-    trainer = Trainer(criterion, optimizer, device)
+
+def startTrainLoop():
     trainer.train_loop(model, train_loader, val_loader)
     trainer.test(model, test_loader)
 
@@ -147,3 +146,26 @@ def getTrainImages():
         if len(imgs) == 10:
             break
     return imgs
+
+
+def startTrainOneEpoch():
+    return trainer.train_one_epoch(copy.deepcopy(model), train_loader)
+
+
+model = nn.Sequential(nn.Conv2d(3, 6, 5),
+                      nn.ReLU(),
+                      nn.MaxPool2d(2),
+                      nn.Conv2d(6, 16, 5),
+                      nn.ReLU(),
+                      nn.MaxPool2d(2),
+                      nn.Flatten(),
+                      nn.Linear(400, 120),
+                      nn.ReLU(),
+                      nn.Linear(120, 84),
+                      nn.ReLU(),
+                      nn.Linear(84, 10))
+
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(
+    params=model.parameters(), lr=1e-3, momentum=0.9)
+trainer = Trainer(criterion, optimizer, device)
