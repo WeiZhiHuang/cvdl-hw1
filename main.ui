@@ -475,10 +475,10 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>200</y>
        <width>110</width>
-       <height>16</height>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
@@ -488,14 +488,17 @@
     <widget class="QTextEdit" name="textEdit_5">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>110</x>
        <y>200</y>
-       <width>104</width>
-       <height>20</height>
+       <width>120</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="placeholderText">
+      <string>(0~9999)</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="textBrowser">

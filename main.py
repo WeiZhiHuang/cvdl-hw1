@@ -67,7 +67,7 @@ def showTrainImages():
     for i, img in enumerate(train.getTrainImages()):
         uiTrainImages.imgLabels[i].setPixmap(
             QtGui.QPixmap(QtGui.QImage(ImageQt(img[0]))).scaled(128, 128))
-        uiTrainImages.labels[i].setText(img[1])
+        uiTrainImages.labels[i].setText(labels[img[1]])
     TrainImagesWidget.show()
 
 
@@ -100,6 +100,16 @@ def showTrainingResult():
     plt.show()
 
 
+def interence():
+    try:
+        result = train.inference(int(ui.textEdit_5.toPlainText()))
+        ax = plt.subplot(122)
+        ax.bar(labels, result)
+        plt.show()
+    except ValueError:
+        pass
+
+
 if __name__ == '__main__':
     os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = os.path.join(
         os.path.dirname(PyQt5.__file__), 'Qt', 'plugins', 'platforms')
@@ -121,7 +131,10 @@ if __name__ == '__main__':
     ui.pushButton_10.clicked.connect(showHyperparameters)
     ui.pushButton_11.clicked.connect(trainOneEpoch)
     ui.pushButton_12.clicked.connect(showTrainingResult)
-    # ui.pushButton_13.clicked.connect()
+    ui.pushButton_13.clicked.connect(interence)
+
+    labels = ['plane', 'car', 'bird', 'cat',
+              'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
     Widget.show()
     sys.exit(app.exec_())

@@ -131,10 +131,8 @@ class Trainer:
 
 def getTrainImages():
     imgs = []
-    labels = ['airplane', 'automobile', 'bird', 'cat',
-              'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     for img, label in train_loader:
-        imgs.append((transforms.ToPILImage()(img[0]), labels[label[0]]))
+        imgs.append((transforms.ToPILImage()(img[0]), label[0]))
         if len(imgs) == 10:
             break
     return imgs
@@ -144,11 +142,16 @@ def startTrainOneEpoch():
     return trainer.train_one_epoch(copy.deepcopy(clearModel), train_loader)
 
 
-def startTrainLoop():
+def loadModel():
     if os.path.isfile(MODEL_PATH):
         model.load_state_dict(torch.load(MODEL_PATH))
         model.eval()
-    else:
+        return True
+    return False
+
+
+def startTrainLoop():
+    if not loadModel():
         result = trainer.train_loop(model, train_loader, val_loader)
         torch.save(model.state_dict(), MODEL_PATH)
 
@@ -161,6 +164,18 @@ def startTrainLoop():
         plt.plot(range(0, EPOCHS), np.array(result)[:, 1])
         fig.savefig(os.path.join(ABS_PATH, 'result.png'))
         plt.clf()
+
+
+def inference(imgIndex):
+    if loadModel():
+        plt.figure(figsize=(12, 4))
+        plt.subplot(121)
+        plt.imshow(train_loader.dataset.data[imgIndex])
+        img = data_transform(train_loader.dataset.data[imgIndex]).float()
+        img = torch.tensor(img, requires_grad=True).unsqueeze(0)
+        predict = model(img).detach()
+        return nn.Softmax(dim=1)(predict).numpy()[0]
+    return np.array([])
 
 
 model = nn.Sequential(nn.Conv2d(3, 6, 5),

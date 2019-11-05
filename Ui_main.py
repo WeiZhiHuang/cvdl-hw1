@@ -128,10 +128,10 @@ class Ui_Form(object):
         self.pushButton_13.setGeometry(QtCore.QRect(20, 240, 210, 32))
         self.pushButton_13.setObjectName("pushButton_13")
         self.label_9 = QtWidgets.QLabel(self.tab_2)
-        self.label_9.setGeometry(QtCore.QRect(20, 200, 110, 16))
+        self.label_9.setGeometry(QtCore.QRect(25, 200, 110, 30))
         self.label_9.setObjectName("label_9")
         self.textEdit_5 = QtWidgets.QTextEdit(self.tab_2)
-        self.textEdit_5.setGeometry(QtCore.QRect(120, 200, 104, 20))
+        self.textEdit_5.setGeometry(QtCore.QRect(110, 200, 120, 30))
         self.textEdit_5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit_5.setObjectName("textEdit_5")
         self.textBrowser = QtWidgets.QTextBrowser(self.tab_2)
@@ -177,6 +177,7 @@ class Ui_Form(object):
         self.pushButton_12.setText(_translate("Form", "5.4 Show Train Result"))
         self.pushButton_13.setText(_translate("Form", "5.5 Inference"))
         self.label_9.setText(_translate("Form", "Test Image Index:"))
+        self.textEdit_5.setPlaceholderText(_translate("Form", "(0~9999)"))
         self.textBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
