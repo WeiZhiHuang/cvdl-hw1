@@ -169,6 +169,7 @@ def startTrainLoop():
 def inference(imgIndex):
     if loadModel():
         plt.figure(figsize=(12, 4))
+        plt.gcf().canvas.set_window_title('')
         plt.subplot(121)
         plt.imshow(train_loader.dataset.data[imgIndex])
         img = data_transform(train_loader.dataset.data[imgIndex]).float()

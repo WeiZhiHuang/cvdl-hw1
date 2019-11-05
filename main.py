@@ -86,7 +86,8 @@ def trainOneEpoch():
     losses = train.startTrainOneEpoch()
     iteration = range(len(losses))
 
-    _, ax = plt.subplots()
+    fig, ax = plt.subplots()
+    fig.canvas.set_window_title('')
     ax.plot(iteration, losses)
     ax.set(xlabel='iteration', ylabel='loss')
     plt.show()
@@ -96,6 +97,7 @@ def showTrainingResult():
     train.startTrainLoop()
     resultImg = plt.imread(os.path.abspath(
         os.path.join(os.path.dirname(__file__), 'result.png')))
+    plt.gcf().canvas.set_window_title('')
     plt.imshow(resultImg)
     plt.show()
 
