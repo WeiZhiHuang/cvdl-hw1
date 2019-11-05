@@ -10,7 +10,7 @@ class Ui_Form(object):
 
         self.imgLabels = []
         self.labels = []
-        for i in range(0, 10):
+        for i in range(10):
             imgLabel = QtWidgets.QLabel(Form)
             imgLabel.setGeometry(QtCore.QRect(i * 128 + 30, 0, 128, 128))
             self.imgLabels.append(imgLabel)

@@ -49,7 +49,7 @@ def augmentedReality():
                        [1, -1, 0], [0, 0, -2]]).reshape(-1, 3)
 
     ArWidget.show()
-    for i in range(0, 5):
+    for i in range(5):
         imgPoints, _ = cv2.projectPoints(
             axis, rvecs[i], tvecs[i], cameraMatrix, distCoeffs)
         drawPyramid(imgs[i], imgPoints)
@@ -84,7 +84,7 @@ def showHyperparameters():
 
 def trainOneEpoch():
     losses = train.startTrainOneEpoch()
-    iteration = range(0, len(losses))
+    iteration = range(len(losses))
 
     _, ax = plt.subplots()
     ax.plot(iteration, losses)

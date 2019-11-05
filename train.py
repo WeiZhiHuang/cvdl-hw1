@@ -158,10 +158,10 @@ def startTrainLoop():
         fig = plt.figure(1)
         ax1 = plt.subplot(211)
         ax1.set(title='Accurancy', ylabel='%')
-        plt.plot(range(0, EPOCHS), np.array(result)[:, 0])
+        plt.plot(range(EPOCHS), np.array(result)[:, 0])
         ax2 = plt.subplot(212)
         ax2.set(xlabel='epoch', ylabel='loss')
-        plt.plot(range(0, EPOCHS), np.array(result)[:, 1])
+        plt.plot(range(EPOCHS), np.array(result)[:, 1])
         fig.savefig(os.path.join(ABS_PATH, 'result.png'))
         plt.clf()
 
