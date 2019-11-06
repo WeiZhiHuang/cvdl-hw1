@@ -15,7 +15,7 @@ import os
 import copy
 
 
-EPOCHS = 1
+EPOCHS = 50
 BATCH_SIZE = 64
 PRINT_FREQ = 100
 TRAIN_NUMS = 49000
